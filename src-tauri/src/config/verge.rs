@@ -24,6 +24,16 @@ pub struct IVerge {
     /// copy env type
     pub env_type: Option<String>,
 
+    /// copy env ip type // TODO
+    /// loop(127.0.0.1), interface(use address of list local interface), custom(use custom string)
+    pub env_ip_type: Option<String>, 
+
+    /// copy env ip interface // TODO
+    pub env_ip_interface: Option<String>,
+
+    /// copy env custom ip, used when env_ip_type is set to 'custom' // TODO
+    pub env_custom_ip: Option<String>,
+
     /// start page
     pub start_page: Option<String>,
     /// startup script path
@@ -221,6 +231,9 @@ impl IVerge {
             env_type: Some("bash".into()),
             #[cfg(target_os = "windows")]
             env_type: Some("powershell".into()),
+            env_ip_type: Some("loop".into()),
+            env_ip_interface: None,
+            env_custom_ip: Some("127.0.0.1".into()),
             start_page: Some("/".into()),
             traffic_graph: Some(true),
             enable_memory_usage: Some(true),
@@ -285,6 +298,9 @@ impl IVerge {
         patch!(theme_mode);
         patch!(tray_event);
         patch!(env_type);
+        patch!(env_ip_type);
+        patch!(env_ip_interface);
+        patch!(env_custom_ip);
         patch!(start_page);
         patch!(startup_script);
         patch!(traffic_graph);
@@ -375,6 +391,9 @@ pub struct IVergeResponse {
     pub theme_mode: Option<String>,
     pub tray_event: Option<String>,
     pub env_type: Option<String>,
+    pub env_ip_type: Option<String>,
+    pub env_ip_interface: Option<String>,
+    pub env_custom_ip: Option<String>,
     pub start_page: Option<String>,
     pub startup_script: Option<String>,
     pub traffic_graph: Option<bool>,
@@ -435,6 +454,9 @@ impl From<IVerge> for IVergeResponse {
             theme_mode: verge.theme_mode,
             tray_event: verge.tray_event,
             env_type: verge.env_type,
+            env_ip_type: verge.env_ip_type,
+            env_ip_interface: verge.env_ip_interface,
+            env_custom_ip: verge.env_custom_ip,
             start_page: verge.start_page,
             startup_script: verge.startup_script,
             traffic_graph: verge.traffic_graph,
